@@ -1,7 +1,18 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+
 export default function About() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 80%', 'end 20%'] });
+  const cardY = useTransform(scrollYProgress, [0, 1], [40, 0]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
-    <section id="about" className="relative z-10 mx-auto max-w-5xl px-6 py-20">
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+    <section ref={ref} id="about" className="relative z-10 mx-auto max-w-5xl px-6 py-24">
+      <motion.div
+        className="rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur"
+        style={{ y: cardY, opacity: cardOpacity }}
+      >
         <h2 className="text-3xl font-semibold text-white">About</h2>
         <p className="mt-4 text-white/80">
           I’m a creative developer blending design, 3D, and engineering to craft premium web
@@ -15,7 +26,7 @@ export default function About() {
           <li>• Motion design and micro‑interactions</li>
           <li>• Product thinking and UX strategy</li>
         </ul>
-      </div>
+      </motion.div>
     </section>
   );
 }

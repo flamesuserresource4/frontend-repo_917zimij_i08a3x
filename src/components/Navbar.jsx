@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const links = [
   { href: '#work', label: 'Work' },
@@ -16,7 +17,10 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all ${
         scrolled ? 'backdrop-blur supports-[backdrop-filter]:bg-white/5 border-b border-white/10' : 'bg-transparent'
       }`}
@@ -48,6 +52,6 @@ export default function Navbar() {
           Let’s talk
         </a>
       </nav>
-    </header>
+    </motion.header>
   );
 }
